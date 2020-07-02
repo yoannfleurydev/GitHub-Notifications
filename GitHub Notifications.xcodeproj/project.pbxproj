@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311107F324AE81A900D7CE07 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 311107F224AE81A900D7CE07 /* assets */; };
 		3145EAD524A93D940096F234 /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145EAD424A93D940096F234 /* GitHubService.swift */; };
 		3145EAD724A9C3660096F234 /* GeneralPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145EAD624A9C3660096F234 /* GeneralPreferenceViewController.swift */; };
 		3145EADB24AA0E730096F234 /* GeneralPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3145EADA24AA0E730096F234 /* GeneralPreferenceViewController.xib */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		311107F124ADCA1D00D7CE07 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		311107F224AE81A900D7CE07 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		3145EAD424A93D940096F234 /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
 		3145EAD624A9C3660096F234 /* GeneralPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceViewController.swift; sourceTree = "<group>"; };
 		3145EADA24AA0E730096F234 /* GeneralPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferenceViewController.xib; sourceTree = "<group>"; };
@@ -51,6 +54,8 @@
 		31EA4CB924A509F40044C1FF = {
 			isa = PBXGroup;
 			children = (
+				311107F224AE81A900D7CE07 /* assets */,
+				311107F124ADCA1D00D7CE07 /* README.md */,
 				31EA4CC424A509F40044C1FF /* GitHub Notifications */,
 				31EA4CC324A509F40044C1FF /* Products */,
 			);
@@ -156,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311107F324AE81A900D7CE07 /* assets in Resources */,
 				3145EADB24AA0E730096F234 /* GeneralPreferenceViewController.xib in Resources */,
 				31EA4CD024A509F40044C1FF /* Main.storyboard in Resources */,
 				31EA4CCD24A509F40044C1FF /* Preview Assets.xcassets in Resources */,

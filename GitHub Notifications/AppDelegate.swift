@@ -103,6 +103,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         }
                         
                         self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
+                        
+                        let doesNotificationExist = notifications.count >= 1
+                            
+                        let itemImage = NSImage(named: doesNotificationExist ? "StatusItemImageNotification" : "StatusItemImage")
+                        itemImage?.isTemplate = false
+                            
+                        DispatchQueue.main.async {
+                           self.statusItem.button?.image = itemImage
+                        }
                          
                      } catch  {
                        print("error trying to convert data to JSON")

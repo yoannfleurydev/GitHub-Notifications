@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "StatusItemImage_1.png",
+      "filename" : "StatusItemImageNotification_1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "StatusItemImage_2.png",
+      "filename" : "StatusItemImageNotification_2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "StatusItemImage_3.png",
+      "filename" : "StatusItemImageNotification_3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
