@@ -36,11 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let itemImage = NSImage(named: "StatusItemImage")
-        itemImage?.isTemplate = true
-        
-        statusItem.button?.image = itemImage
-        
         if let menu = menu {
             statusItem.menu = menu
         }
