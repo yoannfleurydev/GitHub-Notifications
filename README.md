@@ -1,6 +1,6 @@
 <div align="center">
     <img
-      src="./GitHub%20Notifications/Assets.xcassets/AppIcon.appiconset/AppIcon256.png"
+      src="./assets/AppIcon256README.png"
       width="200" 
       height="200"
     />
