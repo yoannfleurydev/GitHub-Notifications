@@ -9,7 +9,6 @@
 import Cocoa
 import Defaults
 import SwiftUI
-import Foundation
 import Preferences
 
 extension Preferences.PaneIdentifier {
@@ -41,21 +40,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         firstMenuItem?.action = #selector(openGitHub)
+        setStatusItemImage()
         
         update()
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(AppDelegate.update), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(
+            timeInterval: 60,
+            target: self,
+            selector:
+            #selector(AppDelegate.update),
+            userInfo: nil,
+            repeats: true
+        )
     }
 
     @IBAction
     func preferencesMenuItemActionHandler(_ sender: NSMenuItem) {
         preferencesWindowController.show()
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
     }
 
     @objc func openGitHub() {
@@ -71,48 +74,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let base64Encoded = basicAuth?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) {
             let headers = ["authorization": "Basic \(base64Encoded)"]
 
-             let request = NSMutableURLRequest(
-                 url: NSURL(string: "https://api.github.com/notifications")! as URL,
-                 cachePolicy: .reloadIgnoringLocalCacheData,
-                 timeoutInterval: 10.0
-             )
+            let request = NSMutableURLRequest(
+                url: NSURL(string: "https://api.github.com/notifications")! as URL,
+                cachePolicy: .reloadIgnoringLocalCacheData,
+                timeoutInterval: 10.0
+            )
              
-             request.httpMethod = "GET"
-             request.allHTTPHeaderFields = headers
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
 
-             let session = URLSession.shared
-             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-                 if error != nil {
-                     print(error!)
-                 } else {
-                     guard let responseData = data else {
-                       print("Error: did not receive data")
-                       return
-                     }
-                     
-                     do {
-                       guard let notifications = try JSONSerialization.jsonObject(with: responseData, options: [])
-                         as? [Any] else {
-                           print("error trying to convert data to JSON 1")
-                           return
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+                if error != nil {
+                    print(error!)
+                } else {
+                    guard let responseData = data else {
+                        print("Error: did not receive data")
+                        return
+                    }
+
+                    do {
+                        guard let notifications = try JSONSerialization.jsonObject(with: responseData, options: [])
+                            as? [Any] else {
+                                print("error trying to convert data to JSON 1")
+                                return
                         }
                         
                         self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
                         
                         let doesNotificationExist = notifications.count >= 1
                             
-                        let itemImage = NSImage(named: doesNotificationExist ? "StatusItemImageNotification" : "StatusItemImage")
-                        itemImage?.isTemplate = false
-                            
                         DispatchQueue.main.async {
-                           self.statusItem.button?.image = itemImage
+                            self.setStatusItemImage(
+                                named: doesNotificationExist
+                                    ? "StatusItemImageNotification"
+                                    : "StatusItemImage"
+                            )
                         }
-                         
                      } catch  {
                        print("error trying to convert data to JSON")
                        return
                      }
-                     
                  }
              })
 
@@ -120,5 +122,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    func setStatusItemImage(named: String = "StatusItemImage") {
+        let itemImage = NSImage(named: named)
+        itemImage?.isTemplate = false
+        statusItem.button?.image = itemImage
+    }
 }
 

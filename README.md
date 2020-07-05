@@ -26,7 +26,7 @@ Require macOS 10.15 or later.
 
 ## Download
 
-<!-- TODO add the link to the download -->
+
 
 ## Features
 
