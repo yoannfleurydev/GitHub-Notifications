@@ -26,7 +26,7 @@ Require macOS 10.15 or later.
 
 ## Download
 
-
+https://github.com/yoannfleurydev/GitHub-Notifications/releases
 
 ## Features
 
