@@ -48,10 +48,8 @@ page.
 > You have to right click in the field in order to paste your personal access
 > token as the keyboard shortcut is not yet implemented.
 
-
-
 ---
 
-## My git related projects
+## My others git related projects
 
 - [gitweb](https://github.com/yoannfleurydev/gitweb) 🌲 Open the current remote repository in your browser
