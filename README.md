@@ -24,11 +24,20 @@ Require macOS 10.15 or later.
   <img src="./assets/screenshot_01.png" alt="Overview of the GitHub Notifications menu bar application" />
 </div>
 
-## Download
+## ⬇️ Download
 
 https://github.com/yoannfleurydev/GitHub-Notifications/releases
 
-## Features
+## ⚙️ Setup
+
+Go to your https://github.com/settings/tokens/new, give an explicit name to your
+*Personal Access Token*, check the **notifications** scope and then, select **Generate token**.
+
+Paste the generated *Personnal Access Token* in the **GitHub Notifications Preferences**.
+
+You are good to go 🎉
+
+## ✨ Features 
 
 ### Know when you have a notification
 
@@ -41,7 +50,7 @@ Click on the application in the status bar, and then click on the menu first
 item to access the [GitHub Notifications](https://github.com/notifications)
 page.
 
-## FAQ
+## ❓ FAQ
 
 ### I can't paste my Personal Access Token using keyboard shortcut.
 
@@ -50,6 +59,6 @@ page.
 
 ---
 
-## My others git related projects
+## 👀 My others git related projects
 
 - [gitweb](https://github.com/yoannfleurydev/gitweb) 🌲 Open the current remote repository in your browser
