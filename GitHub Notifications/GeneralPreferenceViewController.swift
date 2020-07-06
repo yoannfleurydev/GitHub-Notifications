@@ -16,16 +16,13 @@ final class GeneralPreferenceViewController: NSViewController, PreferencePane {
     let preferencePaneTitle = "General"
 
     override var nibName: NSNib.Name? { "GeneralPreferenceViewController" }
-    
-    @IBOutlet private var usernameTextField: NSTextField!
+
     @IBOutlet private var passwordTextField: NSTextField!
     @IBOutlet private var saveButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        usernameTextField?.placeholderString = "username"
-        usernameTextField?.stringValue = Defaults[.username]
         passwordTextField?.placeholderString = "********"
         passwordTextField?.stringValue = Defaults[.password]
         
@@ -34,7 +31,6 @@ final class GeneralPreferenceViewController: NSViewController, PreferencePane {
     
     @objc func save() {
         // Save input values in User Defaults
-        Defaults[.username] = usernameTextField!.stringValue
         Defaults[.password] = passwordTextField!.stringValue
         
         // Close the window when done

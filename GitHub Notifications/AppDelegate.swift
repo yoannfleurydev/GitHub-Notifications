@@ -66,60 +66,55 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func update() {
-        let username = Defaults[.username]
         let password = Defaults[.password]
-        
-        let basicAuth = "\(username):\(password)".data(using: .utf8)
-        
-        if let base64Encoded = basicAuth?.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) {
-            let headers = ["authorization": "Basic \(base64Encoded)"]
+    
+        let headers = ["authorization": "token \(password)"]
 
-            let request = NSMutableURLRequest(
-                url: NSURL(string: "https://api.github.com/notifications")! as URL,
-                cachePolicy: .reloadIgnoringLocalCacheData,
-                timeoutInterval: 10.0
-            )
-             
-            request.httpMethod = "GET"
-            request.allHTTPHeaderFields = headers
+        let request = NSMutableURLRequest(
+            url: NSURL(string: "https://api.github.com/notifications")! as URL,
+            cachePolicy: .reloadIgnoringLocalCacheData,
+            timeoutInterval: 10.0
+        )
+         
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
 
-            let session = URLSession.shared
-            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-                if error != nil {
-                    print(error!)
-                } else {
-                    guard let responseData = data else {
-                        print("Error: did not receive data")
-                        return
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if error != nil {
+                print(error!)
+            } else {
+                guard let responseData = data else {
+                    print("Error: did not receive data")
+                    return
+                }
+
+                do {
+                    guard let notifications = try JSONSerialization.jsonObject(with: responseData, options: [])
+                        as? [Any] else {
+                            print("error trying to convert data to JSON 1")
+                            return
                     }
-
-                    do {
-                        guard let notifications = try JSONSerialization.jsonObject(with: responseData, options: [])
-                            as? [Any] else {
-                                print("error trying to convert data to JSON 1")
-                                return
-                        }
+                    
+                    self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
+                    
+                    let doesNotificationExist = notifications.count >= 1
                         
-                        self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
-                        
-                        let doesNotificationExist = notifications.count >= 1
-                            
-                        DispatchQueue.main.async {
-                            self.setStatusItemImage(
-                                named: doesNotificationExist
-                                    ? "StatusItemImageNotification"
-                                    : "StatusItemImage"
-                            )
-                        }
-                     } catch  {
-                       print("error trying to convert data to JSON")
-                       return
-                     }
+                    DispatchQueue.main.async {
+                        self.setStatusItemImage(
+                            named: doesNotificationExist
+                                ? "StatusItemImageNotification"
+                                : "StatusItemImage"
+                        )
+                    }
+                 } catch  {
+                   print("error trying to convert data to JSON")
+                   return
                  }
-             })
+             }
+         })
 
-            dataTask.resume()
-        }
+        dataTask.resume()
     }
 
     func setStatusItemImage(named: String = "StatusItemImage") {

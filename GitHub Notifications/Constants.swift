@@ -10,6 +10,5 @@ import Cocoa
 import Defaults
 
 extension Defaults.Keys {
-    static let username = Key<String>("username", default: "")
     static let password = Key<String>("password", default: "")
 }
