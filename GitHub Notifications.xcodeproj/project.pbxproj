@@ -10,6 +10,8 @@
 		311107F324AE81A900D7CE07 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 311107F224AE81A900D7CE07 /* assets */; };
 		3145EAD724A9C3660096F234 /* GeneralPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145EAD624A9C3660096F234 /* GeneralPreferenceViewController.swift */; };
 		3145EADB24AA0E730096F234 /* GeneralPreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3145EADA24AA0E730096F234 /* GeneralPreferenceViewController.xib */; };
+		3149FC2324BE19FA00157182 /* MenuItemOpenURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149FC2224BE19FA00157182 /* MenuItemOpenURL.swift */; };
+		3149FC2524BE3F5F00157182 /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149FC2424BE3F5F00157182 /* NotificationDTO.swift */; };
 		3195609824AB5E060049691C /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 3195609724AB5E060049691C /* Defaults */; };
 		3195609A24AB5E9A0049691C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3195609924AB5E9A0049691C /* Constants.swift */; };
 		31EA4CC624A509F40044C1FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EA4CC524A509F40044C1FF /* AppDelegate.swift */; };
@@ -24,6 +26,8 @@
 		311107F224AE81A900D7CE07 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		3145EAD624A9C3660096F234 /* GeneralPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferenceViewController.swift; sourceTree = "<group>"; };
 		3145EADA24AA0E730096F234 /* GeneralPreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralPreferenceViewController.xib; sourceTree = "<group>"; };
+		3149FC2224BE19FA00157182 /* MenuItemOpenURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemOpenURL.swift; sourceTree = "<group>"; };
+		3149FC2424BE3F5F00157182 /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		3195609924AB5E9A0049691C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31EA4CC224A509F40044C1FF /* GitHub Notifications.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Notifications.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31EA4CC524A509F40044C1FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 				3145EAD624A9C3660096F234 /* GeneralPreferenceViewController.swift */,
 				3145EADA24AA0E730096F234 /* GeneralPreferenceViewController.xib */,
 				3195609924AB5E9A0049691C /* Constants.swift */,
+				3149FC2224BE19FA00157182 /* MenuItemOpenURL.swift */,
+				3149FC2424BE3F5F00157182 /* NotificationDTO.swift */,
 			);
 			path = "GitHub Notifications";
 			sourceTree = "<group>";
@@ -171,7 +177,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3195609A24AB5E9A0049691C /* Constants.swift in Sources */,
+				3149FC2324BE19FA00157182 /* MenuItemOpenURL.swift in Sources */,
 				3145EAD724A9C3660096F234 /* GeneralPreferenceViewController.swift in Sources */,
+				3149FC2524BE3F5F00157182 /* NotificationDTO.swift in Sources */,
 				31EA4CC624A509F40044C1FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

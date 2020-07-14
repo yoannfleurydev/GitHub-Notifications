@@ -49,8 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Timer.scheduledTimer(
             timeInterval: 60,
             target: self,
-            selector:
-            #selector(AppDelegate.update),
+            selector: #selector(AppDelegate.update),
             userInfo: nil,
             repeats: true
         )
@@ -65,56 +64,115 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSWorkspace.shared.open(NSURL(string: "https://github.com/notifications")! as URL)
     }
     
+    @objc func openGitHubURL(sender: MenuItemOpenURL) {
+        if let url = sender.url {
+            NSWorkspace.shared.open(NSURL(string: url)! as URL)
+        }
+    }
+    
     @objc func update() {
         let password = Defaults[.password]
     
         let headers = ["authorization": "token \(password)"]
 
-        let request = NSMutableURLRequest(
+        let notificationsRequest = NSMutableURLRequest(
             url: NSURL(string: "https://api.github.com/notifications")! as URL,
             cachePolicy: .reloadIgnoringLocalCacheData,
             timeoutInterval: 10.0
         )
-         
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
+
+        notificationsRequest.allHTTPHeaderFields = headers
 
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if error != nil {
-                print(error!)
-            } else {
-                guard let responseData = data else {
-                    print("Error: did not receive data")
-                    return
-                }
-
-                do {
-                    guard let notifications = try JSONSerialization.jsonObject(with: responseData, options: [])
-                        as? [Any] else {
-                            print("error trying to convert data to JSON 1")
+        let getNotificationsTask = session.dataTask(
+            with: notificationsRequest as URLRequest,
+            completionHandler: {
+                (notificationsData, response, error) -> Void in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        guard let responseData = notificationsData else {
+                            print("Error: did not receive data")
                             return
-                    }
-                    
-                    self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
-                    
-                    let doesNotificationExist = notifications.count >= 1
-                        
-                    DispatchQueue.main.async {
-                        self.setStatusItemImage(
-                            named: doesNotificationExist
-                                ? "StatusItemImageNotification"
-                                : "StatusItemImage"
-                        )
-                    }
-                 } catch  {
-                   print("error trying to convert data to JSON")
-                   return
-                 }
-             }
+                        }
+
+                        let decoder = JSONDecoder()
+                        do {
+                            let notifications = try decoder.decode([NotificationJSON].self, from: responseData)
+                            
+                            // Remove previous items.
+                            self.menu?.items.compactMap {
+                                $0 as? MenuItemOpenURL
+                            }.forEach { item in
+                                self.menu?.removeItem(item)
+                            }
+                            
+                            // Add new items
+                            for (index, notification) in notifications.enumerated() {
+                                let notificationMenuItem = MenuItemOpenURL(
+                                    title: notification.subject.title,
+                                    action: #selector(self.openGitHubURL(sender:)),
+                                    keyEquivalent: ""
+                                )
+                                
+                                let notificationURLRequest = NSMutableURLRequest(
+                                    url: NSURL(string: notification.subject.url)! as URL,
+                                    cachePolicy: .reloadIgnoringLocalCacheData,
+                                    timeoutInterval: 10.0
+                                )
+                                
+                                let getNotificationURLTask = session.dataTask(
+                                    with: notificationURLRequest as URLRequest,
+                                    completionHandler: {
+                                        (data, response, error) -> Void in
+                                        if error != nil {
+                                            print(error!)
+                                        } else {
+                                            guard let responseData = data else {
+                                                print("Error: did not receive data")
+                                                return
+                                            }
+                                            
+                                            do {
+                                                let notificationContent = try decoder.decode(NotificationContentJSON.self, from: responseData)
+                                                notificationMenuItem.url = notificationContent.html_url
+                                            } catch  {
+                                              print("error trying to convert data to JSON")
+                                              return
+                                            }
+                                        }
+                                    }
+                                )
+                                getNotificationURLTask.resume()
+                                
+                                notificationMenuItem.toolTip = notification.repository.full_name
+
+                                self.menu?.insertItem(notificationMenuItem, at: index + 1)
+                                
+                                if index == 1 {
+                                    break
+                                }
+                            }
+
+                            self.firstMenuItem?.title = "\(notifications.count) notification\(notifications.count > 1 ? "s" : "")"
+                            
+                            let doesNotificationExist = notifications.count >= 1
+                                
+                            DispatchQueue.main.async {
+                                self.setStatusItemImage(
+                                    named: doesNotificationExist
+                                        ? "StatusItemImageNotification"
+                                        : "StatusItemImage"
+                                )
+                            }
+                         } catch  {
+                           print("error trying to convert data to JSON")
+                           return
+                         }
+                     }
          })
 
-        dataTask.resume()
+        getNotificationsTask.resume()
     }
 
     func setStatusItemImage(named: String = "StatusItemImage") {
