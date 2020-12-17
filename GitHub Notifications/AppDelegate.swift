@@ -16,7 +16,7 @@ extension Preferences.PaneIdentifier {
 }
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {        
+class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var menu: NSMenu?
     @IBOutlet weak var firstMenuItem: NSMenuItem?
     
@@ -123,4 +123,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.button?.image = itemImage
     }
 }
-
